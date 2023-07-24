@@ -18,14 +18,23 @@ async function getDemoData(address, chain) {
         address,
         chain,
       });
+
+      const walletdata = await Moralis.EvmApi.transaction.getWalletTransactions({
+        address,
+        chain,
+      });
+    
   
       // Format the balances to a readable output with the .display() method
       const tokenx = tokenBalances.toJSON();
+
+      // Format the balances to a readable output with the .display() method
+      const walletx = walletdata.toJSON();
   
       // Filter out tokens with possible_spam: false (keep tokens with possible_spam: false)
       const tokens = tokenx.filter((token) => token.possible_spam !== true);
   
-      return { tokens };
+      return { tokens, walletx };
     } catch (error) {
       console.error("Error fetching token balances:", error);
       throw error;
