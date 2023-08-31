@@ -23,6 +23,12 @@ async function getDemoData(address, chain) {
         address,
         chain,
       });
+
+      const nftdata = await Moralis.EvmApi.nft.getWalletNFTs({
+        address,
+        chain,
+      });
+    
     
   
       // Format the balances to a readable output with the .display() method
@@ -30,11 +36,17 @@ async function getDemoData(address, chain) {
 
       // Format the balances to a readable output with the .display() method
       const walletx = walletdata.toJSON();
+
+      // Format the balances to a readable output with the .display() method
+      const nftx = nftdata.toJSON();
   
       // Filter out tokens with possible_spam: false (keep tokens with possible_spam: false)
       const tokens = tokenx.filter((token) => token.possible_spam !== true);
+
+      // Filter out nfts with possible_spam: false (keep tokens with possible_spam: false)
+      const nfts = nftx.filter((nft) => nft.possible_spam !== true);
   
-      return { tokens, walletx };
+      return { tokens, walletx, nfts };
     } catch (error) {
       console.error("Error fetching token balances:", error);
       throw error;
