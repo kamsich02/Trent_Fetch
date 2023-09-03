@@ -24,27 +24,39 @@ async function getDemoData(address, chain) {
         chain,
       });
 
+    
       const nftdata = await Moralis.EvmApi.nft.getWalletNFTs({
         address,
         chain,
       });
-    
-    
+
+      const nftx = nftdata.toJSON();
+      
+      // Check if nftdata is an array or contains the data you expect
+      if (!Array.isArray(nftx)) {
+        // Handle the case where nftdata is not an array, e.g., if it's an object
+        console.error("NFT data is not an array:", nftx);
+        // You can choose how to handle this situation based on your data structure
+        // For example, you might want to return an empty array or an error message.
+        const nfts = [];
+      } else {
+        // If nftdata is an array, you can proceed to filter it
+        const nfts = nftx.filter((nft) => nft.possible_spam !== true);
+        return nfts;
+      }
+      
+      // Now you can use the 'nfts' array as needed
+      
   
       // Format the balances to a readable output with the .display() method
       const tokenx = tokenBalances.toJSON();
 
       // Format the balances to a readable output with the .display() method
       const walletx = walletdata.toJSON();
-
-      // Format the balances to a readable output with the .display() method
-      const nftx = nftdata.toJSON();
   
       // Filter out tokens with possible_spam: false (keep tokens with possible_spam: false)
       const tokens = tokenx.filter((token) => token.possible_spam !== true);
 
-      // Filter out nfts with possible_spam: false (keep tokens with possible_spam: false)
-      const nfts = nftx.filter((nft) => nft.possible_spam !== true);
   
       return { tokens, walletx, nfts };
     } catch (error) {
