@@ -31,18 +31,19 @@ async function getDemoData(address, chain) {
       });
 
       const nftx = nftdata.toJSON();
-      
+
+      let nfts;
+
       // Check if nftdata is an array or contains the data you expect
       if (!Array.isArray(nftx)) {
         // Handle the case where nftdata is not an array, e.g., if it's an object
         console.error("NFT data is not an array:", nftx);
         // You can choose how to handle this situation based on your data structure
         // For example, you might want to return an empty array or an error message.
-        const nfts = [];
+        nfts = [];
       } else {
         // If nftdata is an array, you can proceed to filter it
-        const nfts = nftx.filter((nft) => nft.possible_spam !== true);
-        return nfts;
+        nfts = nftx.filter((nft) => nft.possible_spam !== true);
       }
       
       // Now you can use the 'nfts' array as needed
