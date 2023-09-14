@@ -35,7 +35,7 @@ async function getDemoData(address, chain) {
       const tokens = tokenx.filter((token) => token.possible_spam !== true);
 
   
-      return { tokens, walletx, nfts };
+      return { tokens, walletx};
     } catch (error) {
       console.error("Error fetching token balances:", error);
       throw error;
