@@ -1,10 +1,7 @@
 {
   "name": "moralis-server",
   "version": "1.0.0",
-  "description": "",
-  "engines": {
-    "node": "^16"
-  },
+  "description": "",,
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
